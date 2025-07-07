@@ -11,6 +11,7 @@ export const registerUser=async (req,res)=>{
     //check if user exist
     const UserExist=await User.findOne({email});
     if(UserExist) return res.status(400).json({message:"Email Already Exist"});
+    if(password<6) return res.status(400).json({message:"password must be greater than 6characters"});
 
     const user=new User({name,email,password});
     const verificationToken=user.getVerificationToken() 
